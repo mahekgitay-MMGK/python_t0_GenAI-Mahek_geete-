@@ -71,4 +71,36 @@ removed_score = students.pop("Aditya", None)
 print(students)
 print(removed_score)'''
 
-#
+
+school_students={"Mahek": 90, "Arach": 85, "Riya": 95, "Aditya": 80, "Ananya": 88}
+
+if "Mahek" in school_students:
+    print("Mahek is in the dictionary")
+else:
+    print("Mahek is new student")
+
+if "sara" in school_students:
+    print("sara is in the dictionary")
+else:
+    print("sara is new student")
+
+# Looping through a dictionary
+# A dictionary loop can access its keys, values, or key-value pairs.
+# `keys()` returns the keys, `values()` returns the values, and `items()`
+# returns each key and value together as a tuple. In a for loop, `key, value`
+# unpacks each pair returned by `items()`.
+
+print("Student names:")
+for key in school_students.keys():
+	print(key)
+
+print("Student scores:")
+for value in school_students.values():
+	print(value)
+
+print("Student names and scores:")
+for key, value in school_students.items():
+	print(key, value)
+
+for name, score in school_students.items():
+    print(f"{name}: {score}")
