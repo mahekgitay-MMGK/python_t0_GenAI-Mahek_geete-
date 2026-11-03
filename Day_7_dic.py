@@ -26,3 +26,10 @@ print(student)
 # Asha
 # 20
 # {'name': 'Asha', 'age': 21, 'course': 'Data Science', 'city': 'Pune'}'''
+
+#Task 
+
+students={"Mahek": 90, "Arach": 85, "Riya": 95, "Aditya": 80, "Ananya": 88}
+students["Riya"] = 99
+print(students)
+
