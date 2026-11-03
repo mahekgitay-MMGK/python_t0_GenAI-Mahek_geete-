@@ -104,3 +104,22 @@ for key, value in school_students.items():
 
 for name, score in school_students.items():
     print(f"{name}: {score}")
+
+# Nested dictionaries
+# A nested dictionary is a dictionary whose values include other dictionaries.
+# It is useful for grouping related information under one key. Access a nested
+# value by chaining keys, and update it by assigning to the corresponding keys.
+classroom = {
+	"student1": {"name": "Asha", "age": 20},
+	"student2": {"name": "Ravi", "age": 21},
+}
+
+print(classroom["student1"]["name"])  # Asha
+classroom["student1"]["age"] = 22
+classroom["student2"]["grade"] = "A"
+print(classroom)
+
+# Use get() when an outer or nested key might be missing.
+print(classroom.get("student3", {}).get("name", "Student not found"))
+
+
