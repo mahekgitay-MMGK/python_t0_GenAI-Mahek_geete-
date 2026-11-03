@@ -52,3 +52,23 @@ print(students.get("Unknown", "Student not found"))'''
 # Student not found
 # 99
 
+# Task
+
+print(students.get("Riya"))
+print(students.get("sata","Not found"))
+
+# Checking dictionary keys
+# Use the `in` keyword to check whether a key exists in a dictionary. It returns
+# True or False. This checks keys, not values.
+'''if "Riya" in students:
+	print("Riya is in the dictionary")'''
+
+# Deleting dictionary items
+# Use `del` to remove an item by key. Use `pop()` to remove an item and return
+# its value; its optional default avoids a KeyError when the key is missing.
+'''del students["Arach"]
+removed_score = students.pop("Aditya", None)
+print(students)
+print(removed_score)'''
+
+#
