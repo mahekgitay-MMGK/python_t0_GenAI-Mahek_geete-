@@ -33,3 +33,22 @@ students={"Mahek": 90, "Arach": 85, "Riya": 95, "Aditya": 80, "Ananya": 88}
 students["Riya"] = 99
 print(students)
 
+# Dictionary access and safety
+# Use square brackets when you know the key exists. If it is missing, Python
+# raises a KeyError. Use get() when a key may not exist; it returns None (or a
+# default value you provide) instead of raising an error.
+'''print(students["Mahek"])
+print(students.get("Unknown"))
+print(students.get("Unknown", "Student not found"))'''
+
+# You can also check whether a key exists before accessing its value.
+'''if "Riya" in students:
+	print(students["Riya"])'''
+
+# Output:
+# {'Mahek': 90, 'Arach': 85, 'Riya': 99, 'Aditya': 80, 'Ananya': 88}
+# 90
+# None
+# Student not found
+# 99
+
