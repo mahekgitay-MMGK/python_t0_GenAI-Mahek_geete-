@@ -21,14 +21,21 @@ Example with Python's standard library:
 	digest = hashlib.sha256(b"hello").hexdigest()
 """
 
-import hashlib
+'''import hashlib
 
 def compute_sha256(data: bytes) -> str:
 	return hashlib.sha256(data).hexdigest()
 
 print(compute_sha256(b"hello"))
 print(compute_sha256(b"hello"))
+print(compute_sha256(b"hello world"))'''
+
+"""import hashlib
+def compute_sha256(data: bytes) ->str:
+    return hashlib.sha256(data).hexdigest()
+
+print(compute_sha256(b"hello"))
+print(compute_sha256(b"hello"))
 print(compute_sha256(b"hello world"))
 
-
-
+"""
