@@ -30,7 +30,8 @@ print(compute_sha256(b"hello"))
 print(compute_sha256(b"hello"))
 print(compute_sha256(b"hello world"))'''
 
-"""import hashlib
+
+import hashlib
 def compute_sha256(data: bytes) ->str:
     return hashlib.sha256(data).hexdigest()
 
@@ -38,4 +39,16 @@ print(compute_sha256(b"hello"))
 print(compute_sha256(b"hello"))
 print(compute_sha256(b"hello world"))
 
-"""
+
+import hashlib 
+
+def compute_sha256(data: bytes) -> str:
+    
+
+
+    if not isinstance(data, bytes):
+        raise TypeError("input must be bytes")
+    return hashlib.sha256(data).hexdigest()
+print(compute_sha256("hello 123"))
+print(compute_sha256(b"hello"))
+print(compute_sha256(b"hello world"))
