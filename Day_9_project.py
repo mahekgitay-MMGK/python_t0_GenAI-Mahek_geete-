@@ -1,4 +1,53 @@
-"""Mini project: a command-line study planner demonstrating Python basics."""
+"""Mini project: a command-line study planner demonstrating Python basics.
+
+Project guide
+=============
+This command-line program helps a learner track study tasks. The menu can add
+tasks, display all tasks, mark a task complete, show totals, and filter tasks
+by category. Tasks are stored in ``study_tasks.json`` in the current working
+directory, so valid tasks persist between runs.
+
+Main parts
+----------
+* ``StudyTask`` is a dataclass containing a title, category, study time in
+	minutes, and completion status. ``from_dict`` validates data read from JSON.
+* ``StudyPlanner`` manages the task list. Its methods add tasks, lazily iterate
+	over tasks (optionally filtered), print tasks, complete a numbered task, and
+	calculate a summary. Task numbers start at 1 for the user.
+* ``load_tasks`` reads JSON and handles missing, unreadable, or malformed
+	files. Invalid individual task records are skipped by the planner.
+	``save_tasks`` converts dataclasses to dictionaries and writes formatted
+	JSON.
+* ``get_positive_integer`` keeps asking until the user enters a whole number
+	greater than zero. The menu loop uses ``if``/``elif`` branches to run the
+	selected action.
+* ``CATEGORIES`` is a tuple of supported categories. Input is normalized with
+	``title()``; an unrecognized category is assigned to ``Other``.
+
+Example output
+==============
+For a fresh save file, adding a task and displaying the list and summary
+produces output like this. Text after prompts is sample user input::
+
+		=== My Study Planner ===
+		1. Add task  2. Show tasks  3. Complete task
+		4. Summary  5. Exit  6. Filter by category
+		Choose 1-6: 1
+		Task title: Review Python
+		Categories: Python, Math, Other
+		Category: Python
+		Study minutes: 30
+		Task added.
+		Choose 1-6: 2
+		1. Review Python (Python, 30 min) - not done
+		Choose 1-6: 4
+		Tasks: 1 | Completed: 0 | Study time: 30 minutes
+		Categories used: Python
+
+The menu is printed again after each action. Selecting 3 asks for a task
+number and marks that task complete; selecting 5 saves and exits. Exact output
+depends on the user's input and tasks already saved.
+"""
 
 import json
 from dataclasses import asdict, dataclass
