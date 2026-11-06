@@ -33,6 +33,13 @@ API_KEY = os.getenv("OPENAI_API_KEY")
 MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
 SYSTEM_MESSAGE = "You are a helpful assistant. Answer clearly and accurately."
+REQUEST_TIMEOUT = 60
+MAX_HISTORY_TURNS = 10
+
+
+def show_help():
+	"""Display available chat commands."""
+	print("Commands: /help, /reset, /exit (or /quit)")
 
 
 def get_reply(messages):
@@ -48,25 +55,34 @@ def get_reply(messages):
 		method="POST",
 	)
 	try:
-		with urlopen(request, timeout=60) as response:
+		with urlopen(request, timeout=REQUEST_TIMEOUT) as response:
 			result = json.loads(response.read().decode("utf-8"))
-		return result["choices"][0]["message"]["content"].strip()
+		reply = result["choices"][0]["message"]["content"]
+		if not isinstance(reply, str) or not reply.strip():
+			raise RuntimeError("The AI service returned an empty or invalid reply.")
+		return reply.strip()
 	except HTTPError as exc:
 		message = exc.read().decode("utf-8", errors="replace")
 		raise RuntimeError(f"API returned HTTP {exc.code}: {message}") from exc
 	except (URLError, TimeoutError) as exc:
 		raise RuntimeError(f"Unable to connect to the AI service: {exc}") from exc
-	except (KeyError, IndexError, json.JSONDecodeError) as exc:
+	except (KeyError, IndexError, TypeError, json.JSONDecodeError) as exc:
 		raise RuntimeError("The AI service returned an invalid response.") from exc
 
 
 def main():
 	if not API_KEY:
-		print("Missing API key. Set the OPENAI_API_KEY environment variable.")
+		print(
+			"Cannot start: OPENAI_API_KEY is not set.\n"
+			"Set your API key in the terminal before running this script:\n"
+			'  PowerShell: $env:OPENAI_API_KEY = "your-api-key"\n'
+			"  Command Prompt: set OPENAI_API_KEY=your-api-key\n"
+			"Then run the script again. Do not share or commit your API key."
+		)
 		return 1
 
 	history = [{"role": "system", "content": SYSTEM_MESSAGE}]
-	print(f"GenAI Chat ({MODEL}) | /reset clears chat | /exit quits")
+	print(f"GenAI Chat ({MODEL}) | /help for commands")
 	while True:
 		try:
 			text = input("\nYou: ").strip()
@@ -76,10 +92,14 @@ def main():
 
 		if not text:
 			continue
-		if text.lower() in {"/exit", "/quit"}:
+		command = text.casefold()
+		if command in {"/exit", "/quit"}:
 			print("Goodbye!")
 			return 0
-		if text.lower() == "/reset":
+		if command == "/help":
+			show_help()
+			continue
+		if command == "/reset":
 			history = [{"role": "system", "content": SYSTEM_MESSAGE}]
 			print("Chat history cleared.")
 			continue
@@ -92,6 +112,8 @@ def main():
 			print(f"Error: {exc}", file=sys.stderr)
 			continue
 		history.append({"role": "assistant", "content": reply})
+		while len(history) > 1 + 2 * MAX_HISTORY_TURNS:
+			del history[1:3]
 		print(f"\nAI: {reply}")
 
 
