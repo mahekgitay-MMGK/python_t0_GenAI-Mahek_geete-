@@ -1,7 +1,25 @@
 """Interactive GenAI chat app using an OpenAI-compatible API.
 
-Set OPENAI_API_KEY in your environment before running this script.
-Optional: set OPENAI_MODEL or OPENAI_BASE_URL for a different model/provider.
+Step-by-step explanation
+1. Set OPENAI_API_KEY in your environment. Optionally set OPENAI_MODEL or
+	OPENAI_BASE_URL to choose a compatible model or provider.
+2. main() checks the key, creates conversation history with the system
+	message, and prints the startup instructions.
+3. Each non-empty message is added to history. get_reply() sends the full
+	conversation to the provider's /chat/completions endpoint.
+4. The response is added to history and displayed. If a request fails, its
+	user message is removed and the error is printed to stderr.
+5. Use /reset to clear the conversation, /exit or /quit to stop, or Ctrl+C
+	or end-of-file to quit cleanly.
+
+Output notes
+- Startup shows the selected model and the /reset and /exit commands.
+- Successful turns show a ``You:`` prompt and then ``AI: <reply>``.
+- /reset prints ``Chat history cleared.``; quitting prints ``Goodbye!``.
+- A missing key or request failure prints an error. Assistant text varies
+  according to the selected model and provider.
+
+Run with: ``python Day_10_projGenAI.py``
 """
 
 import json
