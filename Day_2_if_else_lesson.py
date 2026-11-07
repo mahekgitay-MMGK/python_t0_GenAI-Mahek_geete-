@@ -44,7 +44,7 @@ else:
     print("You can not use any model")'''
 
 "Second version of project with cost calculation"
-'''tokens=int(input("Enter tokens: "))
+tokens=int(input("Enter tokens: "))
 paid_input=input("Enter True if paid otherwise False: ")
 is_paid = paid_input== "True"
 model_name=input("Enter model name which you want to use gpt-4 or gpt-3.5:")
@@ -62,4 +62,27 @@ elif model_name=="gpt-3.5":
 else:
     cost=0
 
-print(f"Model : {model_name},cost:${cost}")'''
+print(f"Model : {model_name},cost:${cost}")
+
+
+"Project: Number Guessing Game using if, elif, and else"
+'''print("Guess the secret number from 1 to 10!")
+secret_number = 7
+guess = int(input("Your guess: "))
+
+if guess == secret_number:
+    print("Correct! You win!")
+elif guess < secret_number:
+    print("Too low! The secret number was 7.")
+else:
+    print("Too high! The secret number was 7.")
+
+# Example output when the player enters 5:
+# Guess the secret number from 1 to 10!
+# Your guess: 5
+# Too low! The secret number was 7.
+#
+# Explanation:
+# The if branch checks whether the guess matches the secret number.
+# If it does not, elif checks whether the guess is lower.
+# Otherwise, else runs because the guess must be higher.'''
